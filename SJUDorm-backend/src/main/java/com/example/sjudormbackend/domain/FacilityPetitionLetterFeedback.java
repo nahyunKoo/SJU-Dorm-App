@@ -12,8 +12,9 @@ public class FacilityPetitionLetterFeedback {
     @Column(name = "facility_petition_letter_feedback_id")
     private int facilityPetitionLetterFeedbackId;
 
-    @Column(name = "facility_petition_letter_id")
-    private int facilityPetitionLetterId;
+    @OneToOne
+    @JoinColumn(name = "facility_petition_letter_id")
+    private FacilityPetitionLetter facilityPetitionLetter;
 
     @Column(name = "feedback")
     private String feedback;
@@ -23,4 +24,5 @@ public class FacilityPetitionLetterFeedback {
 
     @Column(name = "status")
     private boolean status;
+
 }

@@ -29,4 +29,7 @@ public class FacilityPetitionLetter {
 
     @Column(name = "content")
     private String content;
+
+    @OneToOne(mappedBy = "facilityPetitionLetter", cascade = CascadeType.ALL)
+    private FacilityPetitionLetterFeedback facilityPetitionLetterFeedback;
 }
