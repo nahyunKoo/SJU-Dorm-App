@@ -3,14 +3,14 @@ package com.example.sjudormbackend.service;
 import com.example.sjudormbackend.domain.Menu;
 import com.example.sjudormbackend.repository.MenuRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Duration;
 import java.util.List;
 
 @Slf4j
@@ -30,26 +30,52 @@ public class MenuService {
         menuRepository.save(menu);
     }
 
-    public void fetchAndSaveMenu(String url) throws Exception{
-        Document doc = Jsoup.connect(url).get();
-        List<Element> days = doc.select("ul.vpanel > li.openli");
-        for (Element day : days) {
-            String date = day.select("th.te_left").text(); // 식단 날짜
-            String launch = day.select("td#fo_menu_lun" + day.attr("id").substring(3)).text(); // 중식
-            String dinner = day.select("td#fo_menu_eve" + day.attr("id").substring(3)).text(); // 석식
 
-            log.info("Fetched menu for date: {}", date);
-            log.info("Launch: {}", launch);
-            log.info("Dinner: {}", dinner);
-            Menu menu = new Menu();
-            // date 문자열을 Date 객체로 변환
-            menu.setDate(date);
-            menu.setLaunch(launch);
-            menu.setDinner(dinner);
+    //메뉴 크롤링
+    public void crawlMenu(){
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\angel\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
 
-            saveMenu(menu);
+        // WebDriver 인스턴스 생성
+        WebDriver driver = new ChromeDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30)); // 30초 대기
 
-            log.info(menu.toString());
+        try {
+            // 웹 페이지 열기
+            driver.get("https://happydorm.sejong.ac.kr/60/6050.kmc");
+            //페이지 로딩 대기
+            wait.until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete'"));
+            WebElement tabDayA = driver.findElement(By.xpath("//*[@id='tabDayA']"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", tabDayA);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", tabDayA);
+
+            // 메뉴 정보 크롤링
+            for (int day = 1; day <= 7; day++) {
+                String lunchId = "fo_menu_lun" + day;
+                String dinnerId = "fo_menu_eve" + day;
+                String dateId = "vDate" + day;
+
+                //아이디로 요소 찾기
+                WebElement lunchElement = driver.findElement(By.id(lunchId));
+                WebElement dinnerElement = driver.findElement(By.id(dinnerId));
+                WebElement dateElement = driver.findElement(By.id(dateId));
+                //string 으로 저장
+                String dateText = dateElement.getText();
+                String lunchText = lunchElement.getText();
+                String dinnerText = dinnerElement.getText();
+                log.info("lunchText" + lunchText);
+                log.info("dinnerText" + dinnerText);
+                log.info("dateText" + dateText);
+
+                //menu 객체 만들기
+                Menu menu = new Menu();
+                menu.setDate(dateText);
+                menu.setLunch(lunchText);
+                menu.setDinner(dinnerText);
+
+                menuRepository.save(menu);  //저장
+            }
+        } finally {
+            driver.quit();
         }
     }
 }

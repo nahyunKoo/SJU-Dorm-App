@@ -39,19 +39,11 @@
         @PostMapping("/save")
         public ResponseEntity<String> saveMenu() {
             try {
-                menuService.fetchAndSaveMenu("https://happydorm.sejong.ac.kr/");
-                log.info("Menu data fetched and saved successfully.");
-                return ResponseEntity.status(HttpStatus.CREATED).body("Menu data fetched and saved successfully.");
-            } catch (IOException e) {
-                // 크롤링 실패 시 예외 처리
-                System.out.println(e.getMessage());
-                log.error("IO Exception occurred while fetching menu data: {}", e.getMessage(), e);
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch menu data due to an IO error.");
+                menuService.crawlMenu();
+                return ResponseEntity.ok("Menu data has been successfully saved.");
             } catch (Exception e) {
-                // 그 외의 모든 예외 처리
-                System.out.println(e.getMessage());
-                log.error("Error occurred while fetching and saving menu data: {}", e.getMessage(), e);
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching and saving menu data.");
+                e.printStackTrace();
+                return ResponseEntity.status(500).body("An error occurred while saving menu data.");
             }
         }
 
