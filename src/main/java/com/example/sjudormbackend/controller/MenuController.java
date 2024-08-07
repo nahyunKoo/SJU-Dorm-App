@@ -35,6 +35,7 @@
             return ResponseEntity.ok(menu);
         }
 
+        /*
         //menu 크롤링 해서 db 에 save
         @PostMapping("/save")
         public ResponseEntity<String> saveMenu() {
@@ -46,5 +47,6 @@
                 return ResponseEntity.status(500).body("An error occurred while saving menu data.");
             }
         }
+        */
 
     }
