@@ -10,7 +10,7 @@ import java.util.Date;
 public class FacilityPetitionLetter {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "facility_petition_letter_id")
-    private int facilityPetitionLetterId;
+    private Long facilityPetitionLetterId;
 
     @Column(name = "status")
     private boolean status;

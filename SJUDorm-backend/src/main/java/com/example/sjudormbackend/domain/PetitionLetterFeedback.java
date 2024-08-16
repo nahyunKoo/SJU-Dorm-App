@@ -11,7 +11,7 @@ import java.util.Date;
 public class PetitionLetterFeedback {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "petition_letter_feedback_id", nullable = false)
-    private long petitionLetterFeedbackId;
+    private Long petitionLetterFeedbackId;
 
     @Column(name = "content", nullable = false)
     private String content; //피드백 내용

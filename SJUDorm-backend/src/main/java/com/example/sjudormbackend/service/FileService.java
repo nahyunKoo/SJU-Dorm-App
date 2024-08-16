@@ -1,12 +1,14 @@
 package com.example.sjudormbackend.service;
 
 import com.example.sjudormbackend.domain.AttachedFile;
+import com.example.sjudormbackend.dto.AttachedFileDTO;
 import com.example.sjudormbackend.repository.AttachedFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FileService {
@@ -40,5 +42,18 @@ public class FileService {
     // 9. 엔티티 수 카운트
     public long countFiles() {
         return attachedFileRepository.count();
+    }
+
+    public Optional<List<AttachedFile>> getFilesByNoticeId(Long noticeId) {
+        return attachedFileRepository.findByNotice_NoticeId(noticeId);
+    }
+
+    public Optional<List<AttachedFileDTO>> convertToAttachedFileDTOs(Optional<List<AttachedFile>> attachedFiles) {
+        // Optional이 비어있는지 확인하고 비어있지 않다면 변환 작업 수행
+        return attachedFiles.map(files ->
+                files.stream()
+                        .map(file -> new AttachedFileDTO(file.getId(), file.getFileName(), file.getUrl()))
+                        .collect(Collectors.toList())
+        );
     }
 }

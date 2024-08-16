@@ -15,7 +15,7 @@ public class Menu {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_id")
-    private int menuId;
+    private Long menuId;
 
     @Column(name = "date")
     private Date date;

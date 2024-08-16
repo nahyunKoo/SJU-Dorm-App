@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "attatched_files")
+@NoArgsConstructor
+@Table(name = "attached_files")
+@AllArgsConstructor
 public class AttachedFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,18 +19,18 @@ public class AttachedFile {
     @Column(name = "attached_files_name", nullable = false)
     private String fileName;
 
-    @Column(name = "attached_files_path", nullable = false)
-    private String path;
+    @Column(name = "attached_files_url", nullable = false)
+    private String url;
 
-    @Column(name = "attached_files_size", nullable = false)
-    private long size;
+    /*@Column(name = "attached_files_size", nullable = false)
+    private long size;*/
 
     @ManyToOne
+    @JoinColumn(name = "notice_id")
     private Notice notice;
 
-    public AttachedFile(String fileName, String savePath, long length) {
+    public AttachedFile(String fileUrl, String fileName) {
         this.fileName = fileName;
-        this.path = savePath;
-        this.size = length;
+        this.url = fileUrl;
     }
 }

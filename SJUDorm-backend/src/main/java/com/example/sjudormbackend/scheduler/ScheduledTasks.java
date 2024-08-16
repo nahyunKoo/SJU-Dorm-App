@@ -18,11 +18,13 @@ public class ScheduledTasks {
     @Autowired
     private NoticeRepository noticeRepository;
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 60000000)
     public void fetchAndSaveNotices() throws Exception {
         List<Notice> notices = noticeCrawler.fetchNotices();
-        for(Notice notice: notices){
-            noticeRepository.save(notice);
+        for(Notice notice : notices) {
+            System.out.println(notice.getNoticeId() + " : " +notice.getPageLocated());
         }
+        noticeRepository.saveAll(notices);
+        System.out.println("완료");
     }
 }
