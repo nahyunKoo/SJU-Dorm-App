@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -16,6 +17,9 @@ import java.util.List;
 @Slf4j
 @Service
 public class MenuService {
+
+    @Value("${spring.webdriver.path}")
+    private String driverPath;
 
     @Autowired
     private MenuRepository menuRepository;
@@ -33,7 +37,7 @@ public class MenuService {
 
     //메뉴 크롤링
     public void crawlMenu(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\angel\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", driverPath);
 
         // WebDriver 인스턴스 생성
         WebDriver driver = new ChromeDriver();
@@ -69,7 +73,7 @@ public class MenuService {
                 //menu 객체 만들기
                 Menu menu = new Menu();
                 menu.setDate(dateText);
-                menu.setLunch(lunchText);
+                menu.setLaunch(lunchText);
                 menu.setDinner(dinnerText);
 
                 menuRepository.save(menu);  //저장

@@ -11,7 +11,7 @@ import java.util.Date;
 public class RewardPenaltyPoint {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reward_penalty_point_id", nullable = false)
-    private long rewardPenaltyPointId;
+    private Long rewardPenaltyPointId;
 
     @Column(name = "type", nullable = false)
     private boolean type;   //true 면 상점, false면 벌점

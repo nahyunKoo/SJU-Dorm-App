@@ -10,7 +10,7 @@ import java.util.Date;
 public class FacilityPetitionLetterFeedback {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "facility_petition_letter_feedback_id")
-    private int facilityPetitionLetterFeedbackId;
+    private Long facilityPetitionLetterFeedbackId;
 
     @OneToOne
     @JoinColumn(name = "facility_petition_letter_id")
