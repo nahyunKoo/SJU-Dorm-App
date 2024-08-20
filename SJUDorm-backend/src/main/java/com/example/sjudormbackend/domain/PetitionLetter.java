@@ -11,7 +11,7 @@ import java.util.Date;
 public class PetitionLetter {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "petiton_letter_id", nullable = false)
-    private long petitionLetterId;
+    private Long petitionLetterId;
 
     @Column(name = "title", nullable = false)
     private String title;   //제목
