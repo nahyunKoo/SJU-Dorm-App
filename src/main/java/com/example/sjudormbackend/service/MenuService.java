@@ -73,7 +73,7 @@ public class MenuService {
                 //menu 객체 만들기
                 Menu menu = new Menu();
                 menu.setDate(dateText);
-                menu.setLaunch(lunchText);
+                menu.setLunch(lunchText);
                 menu.setDinner(dinnerText);
 
                 menuRepository.save(menu);  //저장

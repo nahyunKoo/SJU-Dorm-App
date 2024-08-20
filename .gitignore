@@ -37,3 +37,4 @@ out/
 .vscode/
 
 src/main/resources/application.properties
+SJUDorm-backend/src/main/resources/application.properties
