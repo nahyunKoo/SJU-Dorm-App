@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
@@ -28,6 +29,9 @@ public class NoticeService {
     private final FileService fileService;
     private final NoticeRepository noticeRepository;
     private WebDriver driver;
+
+    @Value("${spring.webdriver.path}")  //resources에 application.properties 파일 만드시고 spring.webdriver.path = "경로" 적어서 사용해주시면 됩니당
+    private String driverPath;
 
     public NoticeService(FileService fileService, NoticeRepository noticeRepository) {
         this.fileService = fileService;
@@ -45,7 +49,8 @@ public class NoticeService {
     @PostConstruct      //의존성 주입 완료 후 실행되는 메소드에 적용하는 annotation
     public void setup() {
         // WebDriver 경로 설정 (크롬 드라이버 예시)
-        System.setProperty("webdriver.chrome.driver", "C:/Users/00kwh/SJU-Dorm-App/SJUDorm-backend/src/main/resources/static/chromedriver-win64/chromedriver.exe");
+
+        System.setProperty("webdriver.chrome.driver", driverPath);
         /*
         우측에 chromedriver 경로가 첨부되어야 크롤링이 가능합니다.
          git에 driver가 올라간다면 해당 경로 각자 붙여 넣어주셔야 하고

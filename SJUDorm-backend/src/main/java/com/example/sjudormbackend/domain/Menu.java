@@ -18,7 +18,7 @@ public class Menu {
     private Long menuId;
 
     @Column(name = "date")
-    private Date date;
+    private String date;
 
     @Column(name = "launch")
     private String launch;

@@ -1,0 +1,4 @@
+
+build/resources/main/application.properties
+/build/resources
+src/main/resources/application.properties
