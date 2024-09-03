@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SJU-Dorm-App.iml" filepath="$PROJECT_DIR$/.idea/SJU-Dorm-App.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SJUDorm-backend.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SJUDorm-backend.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SJUDorm-backend.test.iml" filepath="$PROJECT_DIR$/.idea/modules/SJUDorm-backend.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.SJUDorm-backend.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.SJUDorm-backend.main.iml" />
     </modules>
   </component>
